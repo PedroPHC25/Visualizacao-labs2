@@ -1,8 +1,8 @@
-console.log("IT’S ALIVE!");
+// console.log("IT’S ALIVE!");
 
-function $$ (selector, context = document) {
-    return Array.from(context.querySelectorAll(selector));
-}
+// function $$ (selector, context = document) {
+//     return Array.from(context.querySelectorAll(selector));
+// }
 
 // let navLinks = $$("nav a");
 
@@ -17,7 +17,7 @@ let pages = [
     {url: "projects", title: "Projects"},
     {url: "resume", title: "Resume"},
     {url: "contact", title: "Contact"},
-    {url: "https://github.com/gtironi/dataviz_01", title: "GitHub"}
+    {url: "https://github.com/PedroPHC25", title: "GitHub"}
 ];
 
 let nav = document.createElement("nav");
