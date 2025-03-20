@@ -1,0 +1,126 @@
+:root {
+    --color-accent: oklch(65% 50% 0);
+    --border-gray: oklch(80% 3% 200);
+	--border-blue: oklch(70% 0.1 202);
+	--color-header-bg: oklch(72.5% 0.0715 202 / 50%);
+}
+
+html {
+	color-scheme: light;
+}
+
+body {
+	max-width: 100ch;
+	margin-inline: auto;
+	padding: 1cm;
+	font: 100%/1.5 system-ui;
+}
+
+nav ul,
+nav il {
+	display: contents;
+}
+
+nav {
+	display: flex;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color:oklch(80% 3% 200);
+	margin-bottom: 1em;
+}
+
+nav a {
+	flex: 1;
+	text-decoration: none;
+	color: inherit;
+	text-align: center;
+	padding: 0.5em;
+}
+
+nav .current {
+	border-bottom-width: 0.4em;
+	border-bottom-style: solid;
+	border-bottom-color: oklch(80% 3% 200);
+	padding: -0.1em;
+	font-weight: bold;
+}
+
+nav a:hover {
+	border-bottom-width: 0.4em;
+	border-bottom-style: solid;
+	border-bottom-color: var(--color-accent);
+	background-color: oklch(from var(--color-accent) h h h / 10%);
+	padding-bottom: -0.1em;
+}
+
+/* input, textarea, button {
+	font: inherit;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+label, input, textarea, button {
+	display: block;
+}
+
+label {
+	margin-block: -1rem;
+} */
+
+form {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 0.3em;
+}
+
+form label {
+	display: grid;
+	grid-template-columns: subgrid;
+}
+
+#button, label{
+	grid-column: 1 / -1;
+}
+
+img{
+	max-width: 100%;
+}
+
+.projects {
+	display:grid;
+	grid-template-columns : repeat(auto-fill, minmax(15em, 1fr));
+	min-width: 15em;
+	max-width: 1fr;
+}
+
+article{
+	margin: 10px;
+	display: grid;
+	grid-template-rows: subgrid;
+	grid-row: span 3;
+}
+
+article h2{
+	margin: 0;
+}
+
+h1 {
+	font-size: 200%;
+}
+
+h1, h2, h3, h4, h5, h6{
+	line-height: 1.1;
+	text-wrap: balance;
+}
+
+.curriculum{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	min-width: 25em;
+}
+
+header{
+	background-color: var(--color-header-bg);
+	font-weight: bold;
+	text-transform: uppercase;
+} 
