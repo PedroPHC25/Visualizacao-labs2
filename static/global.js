@@ -28,9 +28,9 @@ for (let p of pages) {
     let title = p.title;
     // Create link and add it to nav
     if (!ARE_WE_HOME && !url.startsWith("http")) {
-        let basePath = location.origin + location.pathname.split('/').slice(0, 2).join('/'); 
-        url = basePath + url;
-    }
+        let basePath = location.origin + location.pathname.split('/').slice(0, 2).join('/');
+        url = basePath.replace(/\/$/, '') + "/" + url.replace(/^\//, '');
+    }    
 
     let a = document.createElement("a");
 
