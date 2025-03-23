@@ -28,7 +28,11 @@ for (let p of pages) {
     let title = p.title;
     // Create link and add it to nav
     if (!ARE_WE_HOME && !url.startsWith("http")) {
-        url = "/" + url;
+        let basePath = location.pathname.startsWith("/Visualizacao-labs2") 
+            ? "/" + location.pathname.split('/')[1] // Para GitHub Pages
+            : ""; // Para ambiente local
+    
+        url = basePath + "/" + url;
     }
 
     let a = document.createElement("a");
