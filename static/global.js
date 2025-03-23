@@ -29,8 +29,13 @@ for (let p of pages) {
     // Create link and add it to nav
     if (!ARE_WE_HOME && !url.startsWith("http")) {
         let basePath = location.origin + location.pathname.split('/').slice(0, 2).join('/');
-        url = basePath.replace(/\/$/, '') + "/" + url.replace(/^\//, '');
-    }    
+    
+        // Garante que basePath termina com "/" e url não começa com "/"
+        if (!basePath.endsWith("/")) basePath += "/";
+        if (url.startsWith("/")) url = url.slice(1);
+    
+        url = basePath + url;
+    }
 
     let a = document.createElement("a");
 
