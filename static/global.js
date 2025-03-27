@@ -20,35 +20,35 @@ let pages = [
     {url: "https://github.com/PedroPHC25", title: "GitHub"}
 ];
 
-let nav = document.createElement("nav");
-document.body.prepend(nav);
+// let nav = document.createElement("nav");
+// document.body.prepend(nav);
 
-for (let p of pages) {
-    let url = p.url;
-    let title = p.title;
-    // Create link and add it to nav
-    if (!ARE_WE_HOME && !url.startsWith("http")) {
-        let basePath = location.origin + location.pathname.split('/').slice(0, 2).join('/');
+// for (let p of pages) {
+//     let url = p.url;
+//     let title = p.title;
+//     // Create link and add it to nav
+//     if (!ARE_WE_HOME && !url.startsWith("http")) {
+//         let basePath = location.origin + location.pathname.split('/').slice(0, 2).join('/');
     
-        // Garante que basePath termina com "/" e url não começa com "/"
-        if (!basePath.endsWith("/")) basePath += "/";
-        if (url.startsWith("/")) url = url.slice(1);
+//         // Garante que basePath termina com "/" e url não começa com "/"
+//         if (!basePath.endsWith("/")) basePath += "/";
+//         if (url.startsWith("/")) url = url.slice(1);
     
-        url = basePath + url;
-    }
+//         url = basePath + url;
+//     }
 
-    let a = document.createElement("a");
+//     let a = document.createElement("a");
 
-    if (a.host === location.host && a.pathname === location.pathname) {
-        a.classList.add("current");
-    }
+//     if (a.host === location.host && a.pathname === location.pathname) {
+//         a.classList.add("current");
+//     }
 
-    a.href = url;
-    a.textContent = title;
+//     a.href = url;
+//     a.textContent = title;
 
-    if (a.host != location.host) {
-        a.target = "_blank"
-    }
+//     if (a.host != location.host) {
+//         a.target = "_blank"
+//     }
 
-    nav.append(a);
-}
+//     nav.append(a);
+// }
