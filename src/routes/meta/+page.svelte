@@ -7,6 +7,8 @@
         autoPlacement,
         offset,
     } from '@floating-ui/dom';
+    import Scrolly from "svelte-scrolly";
+    import FileLines from "$lib/FileLines.svelte";
 
     let data = [];
     let commits = [];
@@ -155,40 +157,60 @@
 
 <p>This page includes stats about the code of this website.</p>
 
-<h3>Commits by time and day</h3>
+<Scrolly bind:progress={ commitProgress }>
+	{#each commits as commit, index }
+        <p>
+            On {commit.datetime.toLocaleString("en", {dateStyle: "full", timeStyle: "short"})},
+            {index === 0 
+                ? "I set forth on my very first commit, beginning a magical journey of code. You can view it "
+                : "I added another commit. See it "}
+            <a href="{commit.url}" target="_blank">
+                {index === 0 ? "here" : "here"}
+            </a>.
+            This update transformed {commit.totalLines} lines across { d3.rollups(commit.lines, D => D.length, d => d.file).length } files.
+            With every commit, our project grows.
+        </p>
+    {/each}
 
-<div class="slider-container">
-    <div class="slider">
-        <label for="slider">Show commits until:</label>
-        <input type="range" id="slider" name="slider" min=0 max=100 bind:value={commitProgress}/>
-    </div>
-    <time class="time-label">{commitMaxTime.toLocaleString()}</time>
-</div>
+	<svelte:fragment slot="viz">
+		<h3>Commits by time and day</h3>
 
-<svg viewBox="0 0 {width} {height}">
-    <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
-    <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
+        <div class="slider-container">
+            <div class="slider">
+                <label for="slider">Show commits until:</label>
+                <input type="range" id="slider" name="slider" min=0 max=100 bind:value={commitProgress}/>
+            </div>
+            <time class="time-label">{commitMaxTime.toLocaleString()}</time>
+        </div>
 
-    <g class="dots">
-        {#each filteredCommits as commit, index (commit.id) }
-            <circle
-                class:selected={ clickedCommits.includes(commit) }
-                on:click={ evt => dotInteraction(index, evt) }
-                on:mouseenter={evt => dotInteraction(index, evt)}
-                on:mouseleave={evt => dotInteraction(index, evt)}
-                cx={ xScale(commit.datetime) }
-                cy={ yScale(commit.hourFrac) }
-                r={ rScale(commit.totalLines) }
-                fill="steelblue"
-                fill-opacity="0.7"
-            />
-        {/each}
-    </g>
+        <FileLines lines={filteredLines} width={width}/>
 
-    <g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
-</svg>
+        <svg viewBox="0 0 {width} {height}">
+            <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
+            <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
 
-<Bar data={languageBreakdown} width={width} />
+            <g class="dots">
+                {#each filteredCommits as commit, index (commit.id) }
+                    <circle
+                        class:selected={ clickedCommits.includes(commit) }
+                        on:click={ evt => dotInteraction(index, evt) }
+                        on:mouseenter={evt => dotInteraction(index, evt)}
+                        on:mouseleave={evt => dotInteraction(index, evt)}
+                        cx={ xScale(commit.datetime) }
+                        cy={ yScale(commit.hourFrac) }
+                        r={ rScale(commit.totalLines) }
+                        fill="steelblue"
+                        fill-opacity="0.7"
+                    />
+                {/each}
+            </g>
+
+            <g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
+        </svg>
+
+        <Bar data={languageBreakdown} width={width} />
+	</svelte:fragment>
+</Scrolly>
 
 <dl class="info tooltip" bind:this={commitTooltip} hidden={hoveredIndex === -1} style="left: {tooltipPosition.x}px; top: {tooltipPosition.y}px;">
     <dt>Commit</dt>
